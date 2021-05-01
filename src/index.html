@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Timer</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Timer</h1>
+        <h2 id="time"></h2>
+        <h3>Duration</h3>
+        <form id="start">
+             <input type="number" id="duration">
+             <button type="submit" id="submit-time">start</button>
+        </form>
+        <form id="pause">
+            <button type="submit" id="submit-pause">pause</button>
+        </form>
+        <form id="resume">
+            <button type="submit" id="submit-resume">resume</button>
+        </form>
+        <form id="reset">
+            <button type="submit" id="submit-reset">reset</button>
+        </form>
+        <h3>Notification Configs</h3>
+        <form id="notif-title">
+            <p>Title: </p>
+            <input type="text" id="title">
+            <button type="submit" id="submit-title">set</button>
+        </form>
+        <form id="notif-body">
+            <p>Body: </p>
+            <input type="text" id="body">
+            <button type="submit" id="submit-body">set</button>
+        </form>
+    </body>
+    <script>
+        const startForm = document.querySelector('#start');
+        const pauseForm = document.querySelector('#pause');
+        const resumeForm = document.querySelector('#resume');
+        const resetForm = document.querySelector('#reset');
+
+        const timeIndicator = document.querySelector('#time');
+
+        startForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const item = document.querySelector('#duration').value;
+            window.api.send('toMain', ['start', item]);
+        });
+
+        pauseForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            window.api.send('toMain', ['pause']);
+        });
+
+        resumeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            window.api.send('toMain', ['resume']);
+        });
+
+        resetForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            window.api.send('toMain', ['reset']);
+        });
+
+        document.querySelector('#notif-title').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const item = document.querySelector('#title').value;
+            window.api.send('toMain', ['notif:title', item]);
+        });
+        document.querySelector('#notif-body').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const item = document.querySelector('#body').value;
+            window.api.send('toMain', ['notif:body', item]);
+        });
+
+        window.api.receive('fromMain', (data) => {
+            console.log(data);
+            switch(data[0]) {
+                case 'time':
+                    console.log(data[1])
+                    timeIndicator.textContent = data[1] + 's';
+                    break;
+                case 'alert':
+                    console.log(data[1])
+                    alert(data[1]);
+                    break;
+            }
+        });
+    </script>
+</html>

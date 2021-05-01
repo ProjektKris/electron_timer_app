@@ -1,0 +1,16 @@
+body {
+    color: white;
+    background-color: rgba(47, 52, 55, 0.95);
+    font-family: 'Courier New', Courier, monospace;
+}
+/* h1 {
+    color: white;
+} */
+input {
+    color: white;
+    background-color: rgba(47, 52, 55, 0.95);
+}
+button {
+    color: white;
+    background-color: rgba(47, 52, 55, 0.95);
+}
