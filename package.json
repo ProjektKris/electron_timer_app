@@ -13,6 +13,7 @@
   "author": "Kris",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^12.0.6"
+    "electron": "^12.0.6",
+    "electron-packager": "^15.2.0"
   }
 }
